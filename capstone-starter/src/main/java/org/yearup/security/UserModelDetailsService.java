@@ -1,6 +1,7 @@
 package org.yearup.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.yearup.data.UserDao;
 import org.yearup.models.User;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ public class UserModelDetailsService implements UserDetailsService {
 
     private final UserDao userDao;
 
+    @Autowired
     public UserModelDetailsService(UserDao userDao) {
         this.userDao = userDao;
     }
