@@ -20,6 +20,7 @@ import java.util.List;
 // http://localhost:8080/categories
 // add annotation to allow cross site origin requests
 @RestController
+@CrossOrigin
 public class CategoriesController {
     private CategoryDao categoryDao;
     private ProductDao productDao;
@@ -77,6 +78,7 @@ public class CategoriesController {
 
     // add annotation to call this method for a POST action
     // add annotation to ensure that only an ADMIN can call this function
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/categories")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Category addCategory(@RequestBody Category category) {
@@ -108,6 +110,7 @@ public class CategoriesController {
 
     // add annotation to call this method for a DELETE action - the url path must include the categoryId
     // add annotation to ensure that only an ADMIN can call this function
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/categories/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable int id) {
