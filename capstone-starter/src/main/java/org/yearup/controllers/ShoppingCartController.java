@@ -19,6 +19,7 @@ import java.security.Principal;
 // convert this class to a REST controller
 // only logged-in users should have access to these actions
 @RestController
+@CrossOrigin
 public class ShoppingCartController {
     // a shopping cart requires
     private ShoppingCartDao shoppingCartDao;
