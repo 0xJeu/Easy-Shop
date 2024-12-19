@@ -85,7 +85,6 @@ public class CategoriesController {
         // insert the category
         try {
             return this.categoryDao.create(category);
-
         } catch (Exception e) {
             logger.error("Error creating category: ", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");

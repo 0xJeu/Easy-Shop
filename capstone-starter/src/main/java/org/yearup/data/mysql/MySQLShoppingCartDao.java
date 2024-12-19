@@ -29,7 +29,7 @@ public class MySQLShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     @Override
     public ShoppingCart getByUserId(int userId) {
 
-
+        //query handles getting shopping cart by user id in db
         String query = """
                 SELECT * FROM shopping_cart
                 WHERE user_id = ?
@@ -66,6 +66,7 @@ public class MySQLShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
     @Override
     public ShoppingCart addToCart(int productID, int userID) {
+        //query handles adding to shopping cart in db
         String query = """
                 INSERT INTO shopping_cart
                 Values(?, ?, ?)
@@ -100,6 +101,7 @@ public class MySQLShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
     @Override
     public ShoppingCart updateShoppingCart(int productID, int userID, int quantity) {
+        //query handles updating shopping cart in db
         String query = """
                 UPDATE shopping_cart
                 SET quantity = ?
@@ -123,6 +125,7 @@ public class MySQLShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
     @Override
     public ShoppingCart clearShoppingCart(int userID) {
+        //query handles deleting/clearing shopping cart in db
         String query = """
                 DELETE FROM shopping_cart
                 WHERE user_id = ?

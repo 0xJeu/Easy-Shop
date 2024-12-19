@@ -23,7 +23,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public List<Category> getAllCategories() {
-        // get all categories
+
+        //query handles getting all categories in db
         List<Category> categories = new ArrayList<>();
         String query = """
                 SELECT * FROM categories
@@ -50,7 +51,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public Category getById(int categoryId) {
-        // get category by id
+        //query handles getting category by id in db
         Category category = null;
         String query = """
                 SELECT * FROM categories
@@ -83,7 +84,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public Category create(Category category) {
-        // create a new category
+        //query handles creating a category in db
         String query = """
                 INSERT INTO categories (name, description)
                 VALUES (? , ?)
@@ -115,7 +116,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public void update(int categoryId, Category category) {
-        // update category
+        // query handles updating categories in the db
         String query = """
                 UPDATE categories
                 SET name = ?, description = ?
@@ -137,7 +138,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao {
 
     @Override
     public void delete(int categoryId) {
-        // delete category
+        //query handles deleting categories in db
         String query = """
                 DELETE FROM categories
                 WHERE category_id = ?

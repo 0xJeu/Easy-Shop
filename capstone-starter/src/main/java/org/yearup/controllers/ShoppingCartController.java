@@ -70,7 +70,7 @@ public class ShoppingCartController {
 
         } catch (Exception e) {
             logger.error("Error adding to cart: ", e);
-            throw new RuntimeException(e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
@@ -89,15 +89,15 @@ public class ShoppingCartController {
             User user = userDao.getByUserName(userName);
             int userId = user.getId();
 
-//            logger.info("Product ID: {}, ShoppingCartItem: {}, Principal: {}", id, shoppingCartItem, principal);
-//            logger.info("Updating cart for User ID: {}, Product ID: {}, New Quantity: {}", userId, id, shoppingCartItem.getQuantity());
+            // logger.info("Product ID: {}, ShoppingCartItem: {}, Principal: {}", id, shoppingCartItem, principal);
+            // logger.info("Updating cart for User ID: {}, Product ID: {}, New Quantity: {}", userId, id, shoppingCartItem.getQuantity());
 
             // use the shoppingcartDao to update items in the cart and return the cart
             return this.shoppingCartDao.updateShoppingCart(id, userId, shoppingCartItem.getQuantity());
 
         } catch (Exception e) {
             logger.error("Error adding to cart: ", e);
-            throw new RuntimeException(e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
 
@@ -117,6 +117,7 @@ public class ShoppingCartController {
 
             // use the shoppingcartDao to clear all items in the cart and return the cart
             return this.shoppingCartDao.clearShoppingCart(userId);
+
         } catch (Exception e) {
             logger.error("Error clearing cart: ", e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
