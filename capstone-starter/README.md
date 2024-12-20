@@ -1,112 +1,101 @@
-# E-Commerce Web Application
+# E-Commerce REST API
 
-## Overview
-
-This is a Spring Boot-based e-commerce web application that provides a comprehensive set of RESTful API endpoints for managing users, products, categories, and shopping carts.
+This project is a RESTful API backend for an e-commerce platform built with Spring Boot. It provides endpoints for managing products, categories, shopping carts, user profiles, and authentication.
 
 ## Features
 
-### Authentication
-- User registration and login
-- JWT-based authentication
-- Role-based access control (USER and ADMIN roles)
-
-### Product Management
-- Search products with multiple filters
-- Get product details
-- Add, update, and delete products (ADMIN only)
-
-### Category Management
-- List all categories
-- Get category details
-- Retrieve products by category
-- Create, update, and delete categories (ADMIN only)
-
-### Shopping Cart Functionality
-- View shopping cart
-- Add products to cart
-- Clear entire cart
+- User authentication and authorization
+- Product management
+- Category management
+- Shopping cart functionality
+- User profile management
+- Role-based access control (Admin and User roles)
 
 ## API Endpoints
 
-### Authentication Endpoints
-- `POST /login`: User login
-- `POST /register`: User registration
+### Authentication
+- `POST /login` - Authenticate user and receive JWT token
+- `POST /register` - Register new user account
 
-### Product Endpoints
-- `GET /products`: Search products
-    - Optional query parameters:
-        - `cat`: Filter by category ID
-        - `minPrice`: Minimum price filter
-        - `maxPrice`: Maximum price filter
-        - `color`: Filter by color
-- `GET /products/{id}`: Get product by ID
-- `POST /products`: Add a new product (ADMIN only)
-- `PUT /products/{id}`: Update a product (ADMIN only)
-- `DELETE /products/{id}`: Delete a product (ADMIN only)
+### Products
+- `GET /products` - Get all products with optional filtering
+    - Query parameters:
+        - `cat` - Filter by category ID
+        - `minPrice` - Filter by minimum price
+        - `maxPrice` - Filter by maximum price
+        - `color` - Filter by color
+- `GET /products/{id}` - Get product by ID
+- `POST /products` - Create new product (Admin only)
+- `PUT /products/{id}` - Update product (Admin only)
+- `DELETE /products/{id}` - Delete product (Admin only)
 
-### Category Endpoints
-- `GET /categories`: List all categories
-- `GET /categories/{id}`: Get category by ID
-- `GET /categories/{categoryId}/products`: Get products in a specific category
-- `POST /categories`: Create a new category (ADMIN only)
-- `PUT /categories/{id}`: Update a category (ADMIN only)
-- `DELETE /categories/{id}`: Delete a category (ADMIN only)
+### Categories
+- `GET /categories` - Get all categories
+- `GET /categories/{id}` - Get category by ID
+- `GET /categories/{categoryId}/products` - Get all products in a category
+- `POST /categories` - Create new category (Admin only)
+- `PUT /categories/{id}` - Update category (Admin only)
+- `DELETE /categories/{id}` - Delete category (Admin only)
 
-### Shopping Cart Endpoints
-- `GET /cart`: View current user's shopping cart
-- `POST /cart/products/{id}`: Add a product to cart
-- `DELETE /cart`: Clear the entire shopping cart
+### Shopping Cart
+- `GET /cart` - Get current user's shopping cart
+- `POST /cart/products/{id}` - Add product to cart
+- `PUT /cart/products/{id}` - Update product quantity in cart
+- `DELETE /cart` - Clear shopping cart
+
+### Profile
+- `GET /profile` - Get current user's profile
+- `PUT /profile` - Update user profile
 
 ## Security
 
-The application implements role-based access control:
-- `ROLE_ADMIN`: Full access to create, update, and delete products and categories
-- `ROLE_USER`: Can manage shopping cart and view products
-- `permitAll()`: Allows public access to product and category viewing
+The API uses JWT (JSON Web Token) for authentication. Protected endpoints require a valid JWT token in the Authorization header:
 
-## Authentication Flow
+```
+Authorization: Bearer <token>
+```
 
-1. Register a new user via `/register`
-2. Login via `/login` to receive a JWT token
-3. Include the JWT token in the `Authorization` header for subsequent requests
+## Role-Based Access
 
-## Technologies Used
-
-- Spring Boot
-- Spring Security
-- JWT Authentication
-- RESTful API Design
-- Dependency Injection
+- **Admin Role**: Has full access to all endpoints, including product and category management
+- **User Role**: Can access shopping cart and profile endpoints, view products and categories
+- **Public**: Can view products and categories without authentication
 
 ## Error Handling
 
-The application uses standard HTTP status codes:
-- 200 OK: Successful requests
-- 201 CREATED: Successful resource creation
-- 204 NO CONTENT: Successful deletion
-- 400 BAD REQUEST: Validation errors
-- 401 UNAUTHORIZED: Authentication failures
-- 403 FORBIDDEN: Insufficient permissions
-- 404 NOT FOUND: Resource not found
-- 500 INTERNAL SERVER ERROR: Unexpected server errors
+The API uses standard HTTP status codes and includes error messages in the response:
 
-## Logging
+- `200 OK` - Success
+- `201 Created` - Resource created
+- `400 Bad Request` - Invalid request
+- `401 Unauthorized` - Authentication required
+- `403 Forbidden` - Insufficient permissions
+- `404 Not Found` - Resource not found
+- `500 Internal Server Error` - Server error
 
-The application uses SLF4J for logging errors and important events.
+## Dependencies
 
-## Setup and Installation
+- Spring Boot
+- Spring Security
+- Spring Data
+- JWT Authentication
+- SLF4J for logging
+
+## Getting Started
 
 1. Clone the repository
-2. Configure database connection in `application.properties`
-3. Run database migrations
-4. Build the project with Maven or Gradle
-5. Start the application
+2. Configure your database settings in `application.properties`
+3. Run the application using:
+```bash
+./mvnw spring-boot:run
+```
 
-## Contributing
+## Development
 
-Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+The project follows a standard Spring Boot architecture:
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+- Controllers: Handle HTTP requests and responses
+- Services: Contain business logic
+- DAOs: Handle data access
+- Models: Define data structures
+- Security: Configure authentication and authorization
